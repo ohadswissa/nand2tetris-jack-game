@@ -1,0 +1,283 @@
+/**
+ * XTricks - A Tic Tac Toe Game Logic
+ * 
+ * Created by: Ohad Swissa
+ * Copyright © 2024 Ohad Swissa. All rights reserved.
+ * 
+ * Description:
+ * The XTricks class implements the core logic of the Tic Tac Toe game, including:
+ * 1. Managing the game board.
+ * 2. Handling player moves.
+ * 3. Checking for a winner or a tie.
+ * 4. Resetting the game board for a new game.
+ * 
+ * This class interacts with the `Main` class to enable gameplay.
+ */
+class XTricks {
+    field Array board;
+     /**
+     * Constructor: Initializes the game board and draws the grid on the screen.
+     * Each cell in the board is initialized to 0, representing an empty cell.
+     */
+    constructor XTricks new() {
+        let board = Array.new(9);
+        do drawGrid();
+        return this;
+    }
+     /** Resets the board for a new game */
+    method void resetBoard() {
+        var int i;
+        let i = 0;
+        while (i < 9) {
+            let board[i] = 0; // Clear the board (all cells empty).
+            let i = i + 1;
+        }
+        do Screen.clearScreen(); // Clear the screen.
+        do drawGrid();           // Redraw the grid.
+        return;
+    }
+     /**
+     * Handles player input to select a cell on the grid.
+     * Ensures the selected cell is valid and updates the board accordingly.
+     *
+     * @param playerX - A boolean indicating the current player (true for X, false for O).
+     */
+    method void selectCell(boolean playerX) {
+        var int key;
+
+        while (true) {
+            let key = Keyboard.keyPressed();
+
+            if (key = 49) {
+                if (isValidMove(0)) {
+                    do makeMove(0, 192, 64, playerX);
+                    return;
+                }
+            }
+
+            if (key = 50) {
+                if (isValidMove(1)) {
+                    do makeMove(1, 256, 64, playerX);
+                    return;
+                }
+            }
+
+            if (key = 51) {
+                if (isValidMove(2)) {
+                    do makeMove(2, 320, 64, playerX);
+                    return;
+                }
+            }
+
+            if (key = 52) {
+                if (isValidMove(3)) {
+                    do makeMove(3, 192, 128, playerX);
+                    return;
+                }
+            }
+
+            if (key = 53) {
+                if (isValidMove(4)) {
+                    do makeMove(4, 256, 128, playerX);
+                    return;
+                }
+            }
+
+            if (key = 54) {
+                if (isValidMove(5)) {
+                    do makeMove(5, 320, 128, playerX);
+                    return;
+                }
+            }
+
+            if (key = 55) {
+                if (isValidMove(6)) {
+                    do makeMove(6, 192, 192, playerX);
+                    return;
+                }
+            }
+
+            if (key = 56) {
+                if (isValidMove(7)) {
+                    do makeMove(7, 256, 192, playerX);
+                    return;
+                }
+            }
+
+            if (key = 57) {
+                if (isValidMove(8)) {
+                    do makeMove(8, 320, 192, playerX);
+                    return;
+                }
+            }
+        }
+        return;
+    }
+     /**
+     * Checks if a move is valid.
+     *
+     * @param location - The index of the cell to be checked.
+     * @return true if the cell is empty, false otherwise.
+     */
+    method boolean isValidMove(int location) {
+        if (~(board[location] = -1) & ~(board[location] = 1)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+     /**
+     * Updates the board and draws the player's symbol on the screen.
+     *
+     * @param location - The index of the cell to update.
+     * @param x - The x-coordinate of the symbol on the screen.
+     * @param y - The y-coordinate of the symbol on the screen.
+     * @param playerX - A boolean indicating the current player (true for X, false for O).
+     */
+    method void makeMove(int location, int x, int y, boolean playerX) {
+    // Adjust offsets for centering symbols
+    let x = x ; // Shift left by reducing X-coordinate
+    let y = y + 18 ; // Fine-tune vertical alignment if needed
+
+    if (playerX) {
+        let board[location] = 1;
+        do drawX(x, y); // Draw X.
+    } else {
+        let board[location] = -1;
+        do drawO(x, y); // Draw O.
+    }
+    return;
+}
+     /**
+     * Draws the Tic Tac Toe grid on the screen.
+     * The grid built like as a 3x3 table.
+     */
+   method void drawGrid() {
+    var int offset;
+    let offset = 20;  // Offset to move the grid down.
+
+    // Inner grid lines (bold)
+    do Screen.drawLine(224, 32 + offset, 224, 224 + offset);
+    do Screen.drawLine(225, 32 + offset, 225, 224 + offset); // Parallel line for thickness.
+
+    do Screen.drawLine(288, 32 + offset, 288, 224 + offset);
+    do Screen.drawLine(289, 32 + offset, 289, 224 + offset); // Parallel line for thickness.
+
+    do Screen.drawLine(160, 96 + offset, 352, 96 + offset);
+    do Screen.drawLine(160, 97 + offset, 352, 97 + offset); // Parallel line for thickness.
+
+    do Screen.drawLine(160, 160 + offset, 352, 160 + offset);
+    do Screen.drawLine(160, 161 + offset, 352, 161 + offset); // Parallel line for thickness.
+
+    // Outer border (bold)
+    do Screen.drawLine(160, 32 + offset, 352, 32 + offset);
+    do Screen.drawLine(160, 33 + offset, 352, 33 + offset); // Parallel line for thickness.
+
+    do Screen.drawLine(160, 224 + offset, 352, 224 + offset);
+    do Screen.drawLine(160, 225 + offset, 352, 225 + offset); // Parallel line for thickness.
+
+    do Screen.drawLine(160, 32 + offset, 160, 224 + offset);
+    do Screen.drawLine(161, 32 + offset, 161, 224 + offset); // Parallel line for thickness.
+
+    do Screen.drawLine(352, 32 + offset, 352, 224 + offset);
+    do Screen.drawLine(353, 32 + offset, 353, 224 + offset); // Parallel line for thickness.
+
+    return;
+}
+    /**
+     * Draws an 'O' symbol at the specified coordinates.
+     *
+     * @param x - The x-coordinate of the symbol's center.
+     * @param y - The y-coordinate of the symbol's center.
+     */
+    method void drawO(int x, int y) {
+    var int offset;
+    let offset = 0; // Start with no offset.
+    while (~(offset > 2)) { // Adjust the range to control thickness.
+        do Screen.drawCircle(x, y, 20 + offset);
+        do Screen.drawCircle(x, y, 20 - offset);
+        let offset = offset + 1;
+    }
+    // Draw inner part to create the hollow effect.
+    do Screen.setColor(false);
+    do Screen.drawCircle(x, y, 18); // Inner hollow circle.
+    do Screen.setColor(true);
+    return;
+}
+     /**
+     * Draws an 'X' symbol at the specified coordinates.
+     *
+     * @param x - The x-coordinate of the symbol's center.
+     * @param y - The y-coordinate of the symbol's center.
+     */
+    method void drawX(int x, int y) {
+    var int left, right, top, bottom;
+
+    // Adjust coordinates based on the center position (x, y) and size.
+    let left = x - 20;
+    let right = x + 20;
+    let top = y + 20;
+    let bottom = y - 20;
+
+    // Top-left to bottom-right (Bold Effect).
+    do Screen.drawLine(left, top, right, bottom);
+    do Screen.drawLine(left + 1, top, right + 1, bottom); // Bold
+    do Screen.drawLine(left - 1, top, right - 1, bottom); // Bold
+
+    //Top-right to bottom-left (Bold Effect).
+    do Screen.drawLine(right, top, left, bottom);
+    do Screen.drawLine(right + 1, top - 1, left + 1, bottom - 1); // Bold.
+    do Screen.drawLine(right - 1, top + 1, left - 1, bottom + 1); // Bold.
+
+    return;
+}
+
+     /**
+     * Checks if a player has won the game.
+     *
+     * @return true if a winning combination is found, false otherwise.
+     */
+    method boolean hasWinner() {
+        if ((checkLine(0, 1, 2)) |
+            (checkLine(3, 4, 5)) |
+            (checkLine(6, 7, 8)) |
+            (checkLine(0, 3, 6)) |
+            (checkLine(1, 4, 7)) |
+            (checkLine(2, 5, 8)) |
+            (checkLine(0, 4, 8)) |
+            (checkLine(2, 4, 6))) {
+            return true;
+        }
+        return false;
+    }
+    /**
+     * Helper method to check if three cells form a winning combination.
+     *
+     * @param a - The index of the first cell.
+     * @param b - The index of the second cell.
+     * @param c - The index of the third cell.
+     * @return true if all three cells have the same non-zero value, false otherwise.
+     */
+    method boolean checkLine(int a, int b, int c) {
+        if ((board[a] = board[b]) & (board[b] = board[c]) & ~(board[a] = 0)) {
+            return true;
+        }
+        return false;
+    }
+    /**
+     * Checks if the board is full.
+     *
+     * @return true if all cells are filled, false otherwise.
+     */
+    method boolean isBoardFull() {
+        var int i;
+        let i = 0;
+        while (i < 9) {
+            if (board[i] = 0) {
+                return false;
+            }
+            let i = i + 1;
+        }
+        return true;
+    }
+}

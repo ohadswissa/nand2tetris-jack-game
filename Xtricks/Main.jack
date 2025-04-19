@@ -1,0 +1,131 @@
+/**
+ * XTricks - A Tic Tac Toe Game
+ * 
+ * Created by: Ohad Swissa
+ * Copyright © 2024 Ohad Swissa. All rights reserved.
+ * 
+ * Description:
+ * This program implements a Tic Tac Toe game with a graphical interface.
+ * Includes an opening screen, player announcements, grid mapping, and an option to start a new game.
+ * 
+ * Class: Main
+ * The entry point for the XTricks game. Manages the game loop, handles input, displays the grid,
+ * announces the winner, and prompts the user to replay or exit.
+ */
+class Main {
+    function void main() {
+        var XTricks game;
+        var boolean isWinner, isPlayerX, playAgain, validKey;
+        var int key;
+        let playAgain = true;
+        // Main game loop
+        while (playAgain) {
+            // Opening screen visualization
+            do Screen.clearScreen();
+            do Output.moveCursor(2, 0);
+            do Output.printString("XOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXO");
+            do Output.moveCursor(6, 12);
+            do Output.printString("Welcome to XTricks - A Tic Tac Toe Game!");
+            do Output.moveCursor(8, 10);
+            do Output.printString("Use tactics and be sharp to beat your partner");
+            do Output.moveCursor(10, 18);
+            do Output.printString("May the best of you both win!");
+            do Output.moveCursor(13, 21);
+            do Output.printString("Press SPACE to Start!");
+            do Output.moveCursor(16, 19);
+            do Output.printString("Created by : Ohad Swissa");
+            do Output.moveCursor(20, 0);
+            do Output.printString("XOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXOXO");
+            // Wait for SPACE to start the game.
+            let key = 0;
+            while (~(key = 32)) {
+                let key = Keyboard.keyPressed();
+            }
+            // Clear the screen
+            do Screen.clearScreen();
+            //Start running the game using XTricks class.
+            let game = XTricks.new();
+            let isWinner = false;
+            let isPlayerX = true;
+            // Display the mapping of slots to numbers.
+            do Main.printSlotMapping();
+            do Output.moveCursor(1, 24);
+            do Output.printString("Player X starts!");
+            do Output.moveCursor(3, 19);
+            do Output.printString("Use keys 1-9 to make a move");
+            do Output.println();
+            // Game loop
+            while (~isWinner) {
+                if (game.isBoardFull()) {
+                    do Output.moveCursor(8, 6);
+                    do Output.printString("It's a tie!");
+                    let isWinner = true;
+                } else {
+                    // Player selects a cell
+                    do game.selectCell(isPlayerX);
+                    // Check if there's a winner
+                    let isWinner = game.hasWinner();
+                    if (isWinner) {
+                        if (isPlayerX) {
+                            do Output.moveCursor(8, 4);
+                            do Output.printString("Player X wins!");
+                        } else {
+                            do Output.moveCursor(8, 4);
+                            do Output.printString("Player O wins!");
+                        }
+                    } else {
+                        // Switch turn
+                        let isPlayerX = ~isPlayerX;
+                    }
+                }
+            }
+            // Prompt for a new game.
+            do Output.moveCursor(10, 6);
+            do Output.printString("Play again?"); 
+            do Output.moveCursor(12, 10);
+            do Output.printString("Y/N"); 
+            let key = 0; 
+            let validKey = false;
+            while (~validKey) {
+            let key = Keyboard.keyPressed();
+            if ((key = 89) | (key = 121)) { // 'Y' or 'y'.
+            let playAgain = true;
+            let validKey = true;
+            do game.resetBoard(); // Reset the board
+            } else {
+            if ((key = 78) | (key = 110)) { // 'N' or 'n'.
+            let playAgain = false;
+            let validKey = true;
+        }
+    }
+}
+
+         // Clear the screen for the next game or exit.
+            do Screen.clearScreen();
+         // Clear the screen for the next game or exit.
+            do Screen.clearScreen();
+        }
+        // Exit message.
+        do Output.moveCursor(8, 24);
+        do Output.printString("Great Game!");
+        do Output.moveCursor(10, 16);
+        do Output.printString("Thank you for choosing XTricks!");
+        return;
+    }
+    /** Helper function to display the slot mapping */
+    function void printSlotMapping() {
+        do Output.moveCursor(1, 48); // Move to the right side.
+        do Output.printString("Grid Mapping");
+        do Output.moveCursor(3, 49);
+        do Output.printString(" 1 | 2 | 3 ");
+        do Output.moveCursor(4, 49);
+        do Output.printString("-----------");
+        do Output.moveCursor(5, 49);
+        do Output.printString(" 4 | 5 | 6 ");
+        do Output.moveCursor(6, 49);
+        do Output.printString("-----------");
+        do Output.moveCursor(7, 49);
+        do Output.printString(" 7 | 8 | 9 ");
+        return;
+    }
+}

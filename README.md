@@ -1,7 +1,8 @@
-# X-Tricks – Jack Game (Nand2Tetris Project 9)
+# X-Tricks - Jack Game (Nand2Tetris Project 9)
 
 **X-Tricks** is a two-player arcade-style game written in Jack, inspired by the classic Tic Tac Toe.  
 It runs entirely on the Nand2Tetris platform, using only the built-in OS classes like `Keyboard`, `Screen`, and `Output`.
+🧩 The game is designed to be compiled and run through the official **Nand2Tetris IDE**, which simulates the hardware and operating system environment. 
 
 ---
 
@@ -18,10 +19,10 @@ It runs entirely on the Nand2Tetris platform, using only the built-in OS classes
 
 ## 📂 Folder Contents
 
-- `XTricks/Main.jack` – Entry point, game controller, player turns & flow  
-- `XTricks/XTricks.jack` – Board logic, win conditions, rendering methods  
-- `Xtricks review Ohad Swissa.mov` – Full gameplay demo  
-- `PDF Document for Project 9 Submission.docx` – Architecture & concept summary
+- `XTricks/Main.jack` - Entry point, game controller, player turns & flow  
+- `XTricks/XTricks.jack` - Board logic, win conditions, rendering methods  
+- `Xtricks review Ohad Swissa.mov` - Full gameplay demo  
+- `PDF Document for Project 9 Submission.docx` - Architecture & concept summary
 
 ---
 
@@ -50,7 +51,7 @@ It runs entirely on the Nand2Tetris platform, using only the built-in OS classes
 ## 🎥 Demo Video
 
 Watch the full gameplay demo:  
-🎬 [X-Tricks Review (Ohad Swissa)]([https://drive.google.com/your-link-here](https://drive.google.com/file/d/1MaNo4ogTxkE-Ag1O-KDSNp005cfrNbP1/view)) 
+🎬 [X-Tricks Review (Ohad Swissa)](https://drive.google.com/file/d/1MaNo4ogTxkE-Ag1O-KDSNp005cfrNbP1/view)
 
 ---
 
